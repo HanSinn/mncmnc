@@ -1,16 +1,32 @@
-import React, {Component} from 'react';
-import Login from "./components/logins/Login";
+import {Navigation} from 'react-native-navigation';
+import {registerScreens} from './screens';
 
-import {Provider} from 'react-redux';
-import store from './store/store';
+registerScreens();
 
-export default class App extends Component {
-	render() {
-		return (
-			<Provider store={store}>
-				<Login/>
-			</Provider>
-		);
-	}
-}
+Navigation.events().registerAppLaunchedListener(() => {
+	Navigation.setRoot({
+		root: {
+			stack: {
+				children: [
+					{
+					component: {
+						name: 'login'
+					}
+					}
+				],
+				options: {
+					topBar: {
+						title: {
+							text: 'Login Page'
+						}
+					},
+					layout: {
+						orientation: ['landscape']
+					}
+				}
+			}
+		}
+	});
+});
 
+export default App;

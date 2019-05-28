@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import {View, StyleSheet, Text, TextInput, TouchableOpacity} from "react-native";
 import { connect } from "react-redux";
-import * as actions from "../../actions/loginAction";
-import { Navigation } from "react-native-navigation";
+import * as actions from "../../actions/loginAction"
 
 class Login extends Component {
     constructor(props){
@@ -28,7 +27,7 @@ class Login extends Component {
                 }
             }
         });
-    }
+      }
 
     login() {
         this.props.login(this.state.id, this.state.password).done(()=>{
@@ -36,7 +35,6 @@ class Login extends Component {
                 alert(this.props.error);
             }else{
                 alert("id : " + this.props.id + "            " + "pw : " + this.props.password);
-                this.pushViewPostScreen();
             }
         });
     }
@@ -46,7 +44,7 @@ class Login extends Component {
         return (
             <View style={styles.container}>
                 <View>
-                    <Text style={styles.formTop}>경기대학교 서명 시스템 로그인</Text>
+                    <Text style={styles.formTop}>요기는 서명패드</Text>
                 </View>
                 <View style={styles.form}>
                     <TextInput style={styles.input} placeholder="아이디" 
