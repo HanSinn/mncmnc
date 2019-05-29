@@ -3,6 +3,9 @@ package com.signaturepad;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.rssignaturecapture.RSSignatureCapturePackage;
+import com.reactnativecommunity.webview.RNCWebViewPackage;
+
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -15,6 +18,7 @@ import com.reactnativenavigation.NavigationApplication;
 import com.reactnativenavigation.react.NavigationReactNativeHost;
 import com.reactnativenavigation.react.ReactGateway;
 
+
 /* public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
@@ -26,7 +30,10 @@ import com.reactnativenavigation.react.ReactGateway;
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage()
+          new MainReactPackage(),
+            new RSSignatureCapturePackage(),
+            new RNCWebViewPackage(),
+            new RNCWebViewPackage()
       );
     }
 
@@ -66,13 +73,22 @@ public class MainApplication extends NavigationApplication {
 		return BuildConfig.DEBUG;
 	}
 
-	protected List<ReactPackage> getPackages() {
-		// Add additional packages you require here
-		// No need to add RnnPackage and MainReactPackage
-		return Arrays.<ReactPackage>asList(
-			// eg. new VectorIconsPackage()
-		);
-	}
+	// protected List<ReactPackage> getPackages() {
+	// 	// Add additional packages you require here
+	// 	// No need to add RnnPackage and MainReactPackage
+	// 	return Arrays.<ReactPackage>asList(
+	// 		// eg. new VectorIconsPackage()
+	// 	);
+	// }
+
+
+    protected List<ReactPackage> getPackages() {
+      return Arrays.<ReactPackage>asList(
+          new MainReactPackage(),
+            // new RNCWebViewPackage()
+          new RSSignatureCapturePackage()
+      );
+    }
 	
 	@Override
 	public List<ReactPackage> createAdditionalReactPackages() {

@@ -5,12 +5,12 @@ registerScreens();
 Navigation.events().registerAppLaunchedListener(() => {
 	Navigation.setRoot({
 		root: {
-			stack : {
-				id:"loading",
-				children : [
+			stack: {
+				id : "loading",
+				children: [
 					{
 						component: {
-							name: "loading"
+							name: 'loading'
 						}
 					}
 				]
@@ -18,4 +18,3 @@ Navigation.events().registerAppLaunchedListener(() => {
 		}
 	});
 });
-// AppRegistry.registerComponent(appName, () => App);

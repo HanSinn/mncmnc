@@ -92,9 +92,7 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = state => (
-    console.log("state",state),
-    {
+const mapStateToProps = state => ({
     id : state.auth.id,
     password : state.auth.password,
     error : state.auth.error

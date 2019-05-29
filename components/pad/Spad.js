@@ -1,117 +1,82 @@
-import React, { Component } from 'react';
-import {View, StyleSheet, Text, TextInput, TouchableOpacity} from "react-native";
+import React, {Component} from 'react';
+import {View, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, PanResponder, Platform, TouchableHighlight} from "react-native";
 import { connect } from "react-redux";
-import * as actions from "../../actions/loginAction"
+import * as actions from "../../actions/loginAction";
+import { Navigation } from "react-native-navigation";
+import SignatureCapture from 'react-native-signature-capture';
 
-class Login extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            id : "",
-            password : ""
-        }
-    }
-    pushViewPostScreen() {
-        Navigation.push(this.props.componentId, {
-            component: {
-                name: 'signPad',
-                passProps: {
-                    text: 'Some props that we are passing'
-                },
-                options: {
-                    topBar: {
-                        title: {
-                            text: 'SignaturePad'
-                        }
-                    }
-                }
-            }
-        });
-      }
-
-    login() {
-        this.props.login(this.state.id, this.state.password).done(()=>{
-            if(this.props.error){
-                alert(this.props.error);
-            }else{
-                alert("id : " + this.props.id + "            " + "pw : " + this.props.password);
-            }
-        });
-    }
-
+class Spad extends Component {
     render() {
-        const {actionLogin} = this.props;
         return (
-            <View style={styles.container}>
-                <View>
-                    <Text style={styles.formTop}>요기는 서명패드</Text>
+            <View style={{ flex: 1, flexDirection: "column" }}>
+                <Text style={{alignItems:"center",justifyContent:"center"}}>서명하세요 </Text>
+                <SignatureCapture
+                    style={[{flex:1},styles.signature]}
+                    ref="sign"
+                    onSaveEvent={this._onSaveEvent}
+                    onDragEvent={this._onDragEvent}
+                    saveImageFileInExtStorage={false}
+                    showNativeButtons={false}
+                    showTitleLabel={false}
+                    viewMode={"portrait"}/>
+
+                <View style={{ flex: 1, flexDirection: "row" }}>
+                    <TouchableHighlight style={styles.buttonStyle}
+                        onPress={() => { this.saveSign() } } >
+                        <Text>Save</Text>
+                    </TouchableHighlight>
+
+                    <TouchableHighlight style={styles.buttonStyle}
+                        onPress={() => { this.resetSign() } } >
+                        <Text>Reset</Text>
+                    </TouchableHighlight>
+
                 </View>
-                <View style={styles.form}>
-                    <TextInput style={styles.input} placeholder="아이디" 
-                        onChangeText={id => this.setState({ id })}
-                        value={this.state.id}></TextInput>
-                    <TextInput style={styles.input} placeholder="비밀번호" secureTextEntry={true} 
-                        onChangeText={password => this.setState({ password })}
-                        value={this.state.password}></TextInput>
-                    <TouchableOpacity onPress={() => this.login()}>
-                    <Text style={styles.button}>
-                        로그인
-                    </Text>
-                    </TouchableOpacity>
-                </View>
+
             </View>
         );
+    }
+
+    saveSign() {
+        this.refs["sign"].saveImage();
+    }
+
+    resetSign() {
+        this.refs["sign"].resetImage();
+    }
+
+    _onSaveEvent(result) {
+        //result.encoded - for the base64 encoded png
+        //result.pathName - for the file path name
+        console.log(result);
+    }
+    _onDragEvent() {
+         // This callback will be called when the user enters signature
+        console.log("dragged");
     }
 }
 
 const styles = StyleSheet.create({
-    container : {
-        flex : 1,
-        justifyContent : "center",
-        alignItems : "center"
+    signature: {
+        flex: 1,
+        borderColor: '#000033',
+        borderWidth: 1,
     },
-    formTop : {
-        fontSize : 40,
-        color : "#6ebddd",
-        marginBottom : 20
-    }, 
-    form : {
-        padding : 20,
-        paddingBottom: 10,
-        width : 500,
-        borderWidth : 2,
-        borderColor: "#6ebddd",
-    },
-    input : {
-        minWidth: 200,
-        borderBottomWidth : 1,
-        fontSize: 20,
-    },
-    button : {
-        marginTop: 20,
-        color : "#FFFFFF",
-        backgroundColor : "#4E8DF5",
-        minHeight : 35,
-        borderRadius : 2,
-        justifyContent : "center",
-        alignItems : "center",
-        textAlign : "center",
-        textAlignVertical : "center",
-        fontSize : 20
+    buttonStyle: {
+        flex: 1, justifyContent: "center", alignItems: "center", height: 50,
+        backgroundColor: "#eeeeee",
+        margin: 10
     }
 });
 
-const mapStateToProps = state => (
-    console.log("state",state),
-    {
+const mapStateToProps = state => ({
     id : state.auth.id,
     password : state.auth.password,
     error : state.auth.error
 });
 
 const mapDispatchToProps = dispatch => ({
-    login:(id, password) => dispatch(actions.login({id, password}))
+    confirm:() => dispatch(actions.confirm({id, password}))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
-// export default Login;
+export default connect(mapStateToProps, mapDispatchToProps)(Spad);
