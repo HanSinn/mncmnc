@@ -13,19 +13,9 @@ class Login extends Component {
         }
     }
     pushViewPostScreen() {
-        Navigation.push(this.props.componentId, {
+        Navigation.push("AppStack", {
             component: {
-                name: 'signPad',
-                passProps: {
-                    text: 'Some props that we are passing'
-                },
-                options: {
-                    topBar: {
-                        title: {
-                            text: 'SignaturePad'
-                        }
-                    }
-                }
+                name: 'Spad'
             }
         });
     }
@@ -103,9 +93,7 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = state => (
-    console.log("state",state),
-    {
+const mapStateToProps = state => ({
     id : state.auth.id,
     password : state.auth.password,
     error : state.auth.error

@@ -59,3 +59,8 @@ export  function login(data){
     }
 }
   
+export function confirm(){
+    return {
+        
+    }
+}
