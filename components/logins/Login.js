@@ -13,19 +13,9 @@ class Login extends Component {
         }
     }
     pushViewPostScreen() {
-        Navigation.push(this.props.componentId, {
+        Navigation.push("AppStack", {
             component: {
                 name: 'signPad',
-                passProps: {
-                    text: 'Some props that we are passing'
-                },
-                options: {
-                    topBar: {
-                        title: {
-                            text: 'SignaturePad'
-                        }
-                    }
-                }
             }
         });
     }
@@ -35,7 +25,6 @@ class Login extends Component {
             if(this.props.error){
                 alert(this.props.error);
             }else{
-                alert("id : " + this.props.id + "            " + "pw : " + this.props.password);
                 this.pushViewPostScreen();
             }
         });
