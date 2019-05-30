@@ -15,19 +15,19 @@ class Login extends Component {
     pushViewPostScreen() {
         Navigation.push("AppStack", {
             component: {
-                name: 'signPad',
+                name: 'list',
             }
         });
     }
 
     login() {
-        this.props.login(this.state.id, this.state.password).done(()=>{
-            if(this.props.error){
-                alert(this.props.error);
-            }else{
+        // this.props.login(this.state.id, this.state.password).done(()=>{
+        //     if(this.props.error){
+        //         alert(this.props.error);
+        //     }else{
                 this.pushViewPostScreen();
-            }
-        });
+        //     }
+        // });
     }
 
     render() {

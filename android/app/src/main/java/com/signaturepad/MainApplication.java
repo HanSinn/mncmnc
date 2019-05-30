@@ -3,6 +3,7 @@ package com.signaturepad;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.oblador.vectoricons.VectorIconsPackage;
 import com.rssignaturecapture.RSSignatureCapturePackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 
@@ -31,6 +32,7 @@ import com.reactnativenavigation.react.ReactGateway;
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new VectorIconsPackage(),
             new RSSignatureCapturePackage(),
             new RNCWebViewPackage(),
             new RNCWebViewPackage()

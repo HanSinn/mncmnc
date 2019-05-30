@@ -150,6 +150,7 @@ configurations.all {
 
 
 dependencies {
+    implementation project(':react-native-vector-icons')
     implementation project(':react-native-signature-capture')
     implementation project(':react-native-webview')
     implementation fileTree(dir: "libs", include: ["*.jar"])

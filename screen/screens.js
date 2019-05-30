@@ -7,6 +7,7 @@ export function registerScreens() {
 
   Navigation.registerComponentWithRedux('login', () => require('../components/logins/Login').default, Provider, store);
   Navigation.registerComponentWithRedux('Spad', () => require('../components/pad/Spad').default, Provider, store);
-  // Navigation.registerComponent('Spad', () => require('../components/pad/Spad').default);
+  Navigation.registerComponentWithRedux('loading', () => require('../components/loading/loading').default, Provider, store);
+  Navigation.registerComponentWithRedux('list', () => require('../components/list/list').default, Provider, store);
 
 }
