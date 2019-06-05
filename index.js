@@ -20,7 +20,7 @@ Navigation.events().registerAppLaunchedListener(() => {
 				children: [
 					{
 						component: {
-							name: 'loading'
+							name: 'Loading'
 						}
 					}
 				],

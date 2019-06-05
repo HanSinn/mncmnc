@@ -6,7 +6,8 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
     "ipad": "react-native run-ios --simulator 'iPad Air'",
-    "a":"react-native run-android"
+    "a": "react-native run-android log-android",
+    "b": "react-native log-android"
   },
   "dependencies": {
     "crypto": "^1.0.1",

@@ -5,9 +5,9 @@ import {store} from '../store/store';
 
 export function registerScreens() {
 
-  Navigation.registerComponentWithRedux('login', () => require('../components/logins/Login').default, Provider, store);
+  Navigation.registerComponentWithRedux('Login', () => require('../components/logins/Login').default, Provider, store);
   Navigation.registerComponentWithRedux('Spad', () => require('../components/pad/Spad').default, Provider, store);
-  Navigation.registerComponentWithRedux('loading', () => require('../components/loading/loading').default, Provider, store);
-  Navigation.registerComponentWithRedux('list', () => require('../components/list/list').default, Provider, store);
-
+  Navigation.registerComponentWithRedux('Loading', () => require('../components/loading/Loading').default, Provider, store);
+  Navigation.registerComponentWithRedux('List', () => require('../components/list/List').default, Provider, store);
+  Navigation.registerComponentWithRedux('ListSuhum', () => require('../components/list/ListSuhum').default, Provider, store);
 }
