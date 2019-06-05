@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, PanResponder, Platform, TouchableHighlight} from "react-native";
 import { connect } from "react-redux";
-import * as actions from "../../actions/loginAction";
+import * as actions from "../../actions/listAction";
 import { Navigation } from "react-native-navigation";
 import SignatureCapture from 'react-native-signature-capture';
 

@@ -1,56 +1,72 @@
 import React, { Component } from 'react';
-import {View, StyleSheet, Text, TextInput, TouchableOpacity} from "react-native";
+import {Container, Text, Input,Form, Item, Label, Button} from 'native-base';
+import {StyleSheet} from "react-native";
 import { connect } from "react-redux";
-import * as actions from "../../actions/loginAction";
+import * as actions from "../../actions/listAction";
 import { Navigation } from "react-native-navigation";
 
 class Login extends Component {
     constructor(props){
         super(props);
         this.state = {
-            id : "",
-            password : ""
+            id : "체육진행",
+            password : "123"
         }
     }
     pushViewPostScreen() {
-        Navigation.push("AppStack", {
-            component: {
-                name: 'list',
+        Navigation.setRoot({
+            root: {
+                stack : {
+                    id:"AppStack",
+                    children : [
+                        {
+                            component: {
+                                name: "List"
+                            }
+                        }
+                    ]
+                }
             }
         });
     }
 
     login() {
-        // this.props.login(this.state.id, this.state.password).done(()=>{
-        //     if(this.props.error){
-        //         alert(this.props.error);
-        //     }else{
+        this.props.list(this.state.id, this.state.password,"login").done(()=>{
+            if(this.props.isLoggedIn){
                 this.pushViewPostScreen();
-        //     }
-        // });
+            }else{
+                alert("로그인에 실패하였습니다");
+            }
+        });
     }
 
     render() {
         const {actionLogin} = this.props;
         return (
-            <View style={styles.container}>
-                <View>
+            <Container style={styles.container}>
+                <Form>
                     <Text style={styles.formTop}>경기대학교 서명 시스템 로그인</Text>
-                </View>
-                <View style={styles.form}>
-                    <TextInput style={styles.input} placeholder="아이디" 
-                        onChangeText={id => this.setState({ id })}
-                        value={this.state.id}></TextInput>
-                    <TextInput style={styles.input} placeholder="비밀번호" secureTextEntry={true} 
-                        onChangeText={password => this.setState({ password })}
-                        value={this.state.password}></TextInput>
-                    <TouchableOpacity onPress={() => this.login()}>
-                    <Text style={styles.button}>
+                </Form>
+                <Form style={styles.form}>
+                    <Item floatingLabel>
+                        <Label>아이디</Label>
+                        <Input 
+                            onChangeText={id => this.setState({ id })}
+                            value={this.state.id}></Input>
+                    </Item>
+                    <Item floatingLabel>
+                        <Label>비밀번호</Label>
+                        <Input secureTextEntry={true} 
+                            onChangeText={password => this.setState({ password })}
+                            value={this.state.password}></Input>
+                    </Item>
+                </Form>
+                    <Button block style={styles.button} onPress={() => this.login()}>
+                    <Text>
                         로그인
                     </Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
+                    </Button>
+            </Container>
         );
     }
 }
@@ -68,38 +84,27 @@ const styles = StyleSheet.create({
     }, 
     form : {
         padding : 20,
-        paddingBottom: 10,
         width : 500,
-        borderWidth : 2,
+        borderWidth : 4,
         borderColor: "#6ebddd",
     },
-    input : {
-        minWidth: 200,
-        borderBottomWidth : 1,
-        fontSize: 20,
-    },
     button : {
-        marginTop: 20,
-        color : "#FFFFFF",
-        backgroundColor : "#4E8DF5",
-        minHeight : 35,
-        borderRadius : 2,
-        justifyContent : "center",
-        alignItems : "center",
-        textAlign : "center",
-        textAlignVertical : "center",
-        fontSize : 20
+        marginLeft: 385, 
+        marginRight: 385, 
+        marginTop: 20
     }
 });
 
 const mapStateToProps = state => ({
     id : state.auth.id,
     password : state.auth.password,
-    error : state.auth.error
+    error : state.auth.error,
+    lists : state.auth.lists,
+    isLoggedIn : state.auth.isLoggedIn
 });
 
 const mapDispatchToProps = dispatch => ({
-    login:(id, password) => dispatch(actions.login({id, password}))
+    list:(id, password,types) => dispatch(actions.list({id, password,types}))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

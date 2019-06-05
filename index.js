@@ -9,9 +9,10 @@ Navigation.events().registerAppLaunchedListener(() => {
 		  backButton: {
 			showTitle: false
 		  },
-		},layout: {
-			orientation: ['landscape']
-		  }
+		}
+		// ,layout: {
+		// 	orientation: ['landscape']
+		//   }
 	  })
 	Navigation.setRoot({
 		root: {
@@ -20,7 +21,7 @@ Navigation.events().registerAppLaunchedListener(() => {
 				children: [
 					{
 						component: {
-							name: 'loading'
+							name: 'Loading'
 						}
 					}
 				],

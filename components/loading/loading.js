@@ -5,25 +5,27 @@ import {
   StyleSheet
 } from 'react-native'
 import { Navigation } from 'react-native-navigation'
-export default class Initialising extends Component {
+export default class Loading extends Component {
   
     componentDidMount() {
+        console.log("1번째 콘솔")
         setTimeout(function(){
+          console.log("2번째 콘솔")
             Navigation.setRoot({
                 root: {
                     stack : {
-                        id:"AppStack",
+                        id:"Login",
                         children : [
                             {
                                 component: {
-                                    name: "login"
+                                    name: "Login"
                                 }
                             }
                         ]
                     }
                 }
             });
-        },5000);
+        },3000);
     }
 
   render() {
