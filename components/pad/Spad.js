@@ -1,11 +1,42 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, PanResponder, Platform, TouchableHighlight} from "react-native";
+import 
+    {View, StyleSheet, Text, TextInput, TouchableOpacity, Alert,
+    TouchableWithoutFeedback, PanResponder, Platform, TouchableHighlight, PermissionsAndroid} 
+from "react-native";
 import { connect } from "react-redux";
 import * as actions from "../../actions/loginAction";
 import { Navigation } from "react-native-navigation";
 import SignatureCapture from 'react-native-signature-capture';
 
 class Spad extends Component {
+
+    async requestCameraPermission() {
+        try {
+            const granted = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+                {
+                    title: 'Cool Photo App Camera Permission',
+                    message:
+                        'Cool Photo App needs access to your camera ' +
+                        'so you can take awesome pictures.',
+                    buttonNeutral: 'Ask Me Later',
+                    buttonNegative: 'Cancel',
+                    buttonPositive: 'OK',
+                },
+            );
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                console.log('You can use the storage');
+            } else {
+                console.log('Camera permission denied');
+            }
+        } catch (err) {
+            console.warn(err);
+        }
+    }
+    componentDidMount(){
+        this.requestCameraPermission();
+    }
+    
     render() {
         return (
             <View style={{ flex: 1, flexDirection: "column" }}>
@@ -15,10 +46,11 @@ class Spad extends Component {
                     ref="sign"
                     onSaveEvent={this._onSaveEvent}
                     onDragEvent={this._onDragEvent}
-                    saveImageFileInExtStorage={false}
+                    saveImageFileInExtStorage={true}
                     showNativeButtons={false}
-                    showTitleLabel={false}
-                    viewMode={"portrait"}/>
+                    showTitleLabel={true}
+                    viewMode={"portrait"}
+                    fileName={"motherfucker.png"}/>
 
                 <View style={{ flex: 1, flexDirection: "row" }}>
                     <TouchableHighlight style={styles.buttonStyle}
@@ -49,6 +81,7 @@ class Spad extends Component {
         //result.encoded - for the base64 encoded png
         //result.pathName - for the file path name
         console.log(result);
+        // this.props.onSave && this.props.onSave(result);
     }
     _onDragEvent() {
          // This callback will be called when the user enters signature

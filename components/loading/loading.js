@@ -4,10 +4,14 @@ import {
   Text,
   StyleSheet
 } from 'react-native'
-import { Navigation } from 'react-native-navigation'
+import { Navigation } from 'react-native-navigation';
+
+
+
 export default class Initialising extends Component {
-  
+	
     componentDidMount() {
+		
         setTimeout(function(){
             Navigation.setRoot({
                 root: {
@@ -26,13 +30,13 @@ export default class Initialising extends Component {
         },5000);
     }
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Loading</Text>
-      </View>
-    )
-  }
+	render() {
+		return (
+			<View style={styles.container}>
+				<Text style={styles.welcome}>Loading</Text>
+			</View>
+		)
+	}
 }
 
 const styles = StyleSheet.create({

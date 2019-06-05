@@ -21,13 +21,13 @@ class Login extends Component {
     }
 
     login() {
-        // this.props.login(this.state.id, this.state.password).done(()=>{
-        //     if(this.props.error){
-        //         alert(this.props.error);
-        //     }else{
-                this.pushViewPostScreen();
-        //     }
-        // });
+        this.props.login(this.state.id, this.state.password).done(()=>{
+             if(this.props.error){
+                 alert(this.props.error);
+             }else{
+                 this.pushViewPostScreen();
+             }
+         });
     }
 
     render() {
